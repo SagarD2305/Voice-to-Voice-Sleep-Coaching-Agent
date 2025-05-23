@@ -8,6 +8,7 @@ import pyttsx3
 import time
 from datetime import datetime
 import wave
+import io
 
 class SleepCoach:
     def __init__(self):
@@ -25,7 +26,6 @@ class SleepCoach:
         }
         
     def _load_sleep_knowledge(self):
-        """Load sleep-specific knowledge base"""
         return {
             "sleep_stages": {
                 "N1": "Light sleep, transition between wakefulness and sleep",
@@ -49,25 +49,26 @@ class SleepCoach:
         }
 
     def record_audio(self, duration=5, sample_rate=16000):
-        """Record audio from microphone"""
+
         print("Recording...")
         recording = sd.rec(int(duration * sample_rate), samplerate=sample_rate, channels=1, dtype='int16')
         sd.wait()
         print("Recording finished")
         
-        # Save the recording in the correct format
-        filename = f"recording_{datetime.now().strftime('%Y%m%d_%H%M%S')}.wav"
-        with wave.open(filename, 'wb') as wf:
+        # Save the recording to an in-memory buffer
+        buffer = io.BytesIO()
+        with wave.open(buffer, 'wb') as wf:
             wf.setnchannels(1)
             wf.setsampwidth(2)  # 2 bytes for int16
             wf.setframerate(sample_rate)
             wf.writeframes(recording.tobytes())
-        return filename
+        buffer.seek(0)
+        return buffer
 
-    def transcribe_audio(self, audio_file):
-        """Convert audio to text using speech_recognition"""
+    def transcribe_audio(self, audio_buffer):
+ 
         recognizer = sr.Recognizer()
-        with sr.AudioFile(audio_file) as source:
+        with sr.AudioFile(audio_buffer) as source:
             audio = recognizer.record(source)
             try:
                 text = recognizer.recognize_google(audio)
@@ -143,7 +144,7 @@ class SleepCoach:
         return ("I'm here to help with your sleep concerns. You can ask me about:\n- Sleep stages (N1, N2, N3, REM)\n- Sleep hygiene practices\n- Common sleep issues (insomnia, sleep apnea, etc.)")
 
     def _get_sleep_stage_info(self, query):
-        """Get information about sleep stages"""
+
         stages = self.sleep_knowledge['sleep_stages']
         if 'n1' in query or 'stage 1' in query:
             return f"N1 sleep is {stages['N1']}"
@@ -157,26 +158,26 @@ class SleepCoach:
             return "There are four main stages of sleep:\n1. N1: Light sleep, transition between wakefulness and sleep\n2. N2: Deeper sleep, body temperature drops, heart rate slows\n3. N3: Deep sleep, important for physical recovery\n4. REM: Rapid Eye Movement sleep, important for memory and learning"
 
     def _get_sleep_hygiene_advice(self):
-        """Get sleep hygiene advice"""
+
         advice = self.sleep_knowledge['sleep_hygiene']
         return "Here are some important sleep hygiene practices:\n" + "\n".join(f"- {item}" for item in advice)
 
     def text_to_speech(self, text):
-        """Convert text to speech using pyttsx3"""
+  
         self.engine.say(text)
         self.engine.runAndWait()
 
     def run_conversation(self):
-        """Run a complete voice-to-voice conversation"""
+
         print("Sleep Coach: Hello! I'm your sleep coach. How can I help you today?")
         self.text_to_speech("Hello! I'm your sleep coach. How can I help you today?")
         
         while True:
-            # Record user input
-            audio_file = self.record_audio()
+            # Record user input (in memory)
+            audio_buffer = self.record_audio()
             
             # Transcribe user input
-            user_input = self.transcribe_audio(audio_file)
+            user_input = self.transcribe_audio(audio_buffer)
             print(f"You: {user_input}")
             
             if user_input.lower() in ['quit', 'exit', 'bye']:
@@ -190,10 +191,7 @@ class SleepCoach:
             
             # Convert response to speech
             self.text_to_speech(response)
-            
-            # Clean up audio file
-            os.remove(audio_file)
 
 if __name__ == "__main__":
     coach = SleepCoach()
-    coach.run_conversation() 
+    coach.run_conversation()
