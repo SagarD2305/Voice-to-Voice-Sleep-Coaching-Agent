@@ -1,0 +1,80 @@
+Sleep Coach: Hello! I'm your sleep coach. How can I help you today?
+
+Recording...
+Recording finished
+
+You: what is sleep apnea
+
+Sleep Coach: Sleep apnea is breathing interruptions during sleep. Would you like advice on managing sleep apnea?
+
+Recording...
+Recording finished
+
+You: yes
+
+Sleep Coach: If you suspect sleep apnea, it's important to consult a healthcare provider. Would you like to know about lifestyle changes or medical treatments?
+
+Recording...
+Recording finished
+
+You: no
+
+Sleep Coach: Okay! Let me know if you have any other sleep questions.
+
+Recording...
+Recording finished
+
+You: I have restless legs
+
+Sleep Coach: Restless legs syndrome causes uncomfortable sensations in your legs at night. Would you like tips to manage it?
+
+Recording...
+Recording finished
+
+You: yes
+
+Sleep Coach: For restless legs, regular exercise and good sleep hygiene can help. Would you like more tips or information about medications?
+
+Recording...
+Recording finished
+
+You: I would like to know about sleep concerns
+
+Sleep Coach: I'm here to help with your sleep concerns. You can ask me about:
+- Sleep stages (N1, N2, N3, REM)
+- Sleep hygiene practices
+- Common sleep issues (insomnia, sleep apnea, etc.)
+
+Recording...
+Recording finished
+
+You: I have insomnia
+
+Sleep Coach: Insomnia is difficulty falling or staying asleep. Would you like some tips to manage insomnia?
+
+Recording...
+Recording finished
+
+You: yes
+
+Sleep Coach: Here are some advanced tips for managing insomnia:
+- Try cognitive behavioral therapy for insomnia (CBT-I)
+- Avoid clock-watching at night
+- Get out of bed if you can't sleep after 20 minutes
+- Reserve your bed for sleep only
+Would you like tips for falling asleep or staying asleep?
+
+Recording...
+Recording finished
+
+You: tips for staying asleep
+
+Sleep Coach: For staying asleep: Keep your bedroom cool, avoid large meals before bed, and manage stress.
+Would you like more tips?
+
+Recording...
+Recording finished
+
+You: quit
+
+Sleep Coach: Goodbye! Sleep well!
